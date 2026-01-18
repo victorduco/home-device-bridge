@@ -1,0 +1,18 @@
+{
+  "devices": [
+    {
+      "id": "iphone_2",
+      "name": "iPhone",
+      "type": "mobile",
+      "platform": "ios",
+      "notify_service": "mobile_app_iphone_2"
+    },
+    {
+      "id": "sm_t860",
+      "name": "Samsung Tablet",
+      "type": "mobile",
+      "platform": "android",
+      "notify_service": "mobile_app_sm_t860"
+    }
+  ]
+}
