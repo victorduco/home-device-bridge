@@ -12,5 +12,5 @@ COPY . .
 # Expose port
 EXPOSE 8000
 
-# Run application
-CMD ["python", "-m", "src.server.main"]
+# Run HTTP/SSE server
+CMD ["python", "-m", "src.server.http_server"]
