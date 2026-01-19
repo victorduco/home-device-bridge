@@ -3,12 +3,16 @@
 from dotenv import load_dotenv
 from fastmcp import FastMCP
 
-from mcp.tools.plants import register_plants_tools
+from src.prompts.notifications import register_notification_prompts
+from src.resources.notifications import register_notification_resources
+from src.tools.notifications import register_notification_tools
 
 load_dotenv()
 
 mcp = FastMCP("My MCP Server")
-register_plants_tools(mcp)
+register_notification_tools(mcp)
+register_notification_resources(mcp)
+register_notification_prompts(mcp)
 
 if __name__ == "__main__":
     mcp.run(transport="http")
