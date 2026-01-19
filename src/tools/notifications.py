@@ -11,16 +11,18 @@ def register_notification_tools(mcp: FastMCP) -> None:
     """Register Home Assistant notification tools."""
 
     @mcp.tool
-    def get_device_list() -> dict[str, Any]:
+    def get_device_list() -> list[dict[str, str]]:
         """Return available notification devices and their slugs."""
-        return {
-            "devices": [
-                {
-                    "slug": "iphone",
-                    "description": "Primary user iPhone.",
-                }
-            ]
-        }
+        return [
+            {
+                "device": "iphone_2",
+                "description": "Primary user iPhone.",
+            },
+            {
+                "device": "sm_t860",
+                "description": "Samsung tablet.",
+            },
+        ]
 
     @mcp.tool
     async def send_notification(
