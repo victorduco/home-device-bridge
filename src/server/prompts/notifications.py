@@ -15,7 +15,9 @@ def register_notification_prompts(mcp: FastMCP) -> None:
     ) -> str:
         """Guide the model to craft a Home Assistant notification."""
         device_hint = (
-            f'Device slug: "{device}".' if device else "Device slug is unknown."
+            f'Device slug: "{device}".'
+            if device
+            else "Device slug is unknown. Read mcp://notification/devices first."
         )
         intent_hint = f'Intent: "{intent}".' if intent else "Intent is not specified."
         audience_hint = (

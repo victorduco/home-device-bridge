@@ -20,6 +20,7 @@ Optional fields:
 
 Notes:
 - The device maps to notify.mobile_app_<device> in Home Assistant.
+- If you don't know the slug, first read mcp://notification/devices.
 - If you only have a device name, ask the user to confirm the slug.
 - Prefer concise, action-oriented phrasing.
 
