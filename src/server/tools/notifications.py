@@ -20,7 +20,10 @@ def register_notification_tools(mcp: FastMCP) -> None:
         sound: str = "default",
         data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        """Send a Home Assistant push notification using notify.mobile_app_<device>."""
+        """Send a Home Assistant push notification using notify.mobile_app_<device>.
+
+        Use the exact <device> slug from the mcp://notification/devices resource.
+        """
         if not HA_TOKEN:
             return {"status": "error", "error": "HA_TOKEN is not set"}
 
