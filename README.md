@@ -108,6 +108,22 @@ docker run -p 8000:8000 --env-file .env home-device-bridge
 docker-compose up -d
 ```
 
+## CI/CD
+
+GitHub Actions builds the Docker image on every PR/push, and deploys to the home server on pushes to `main`.
+
+Required repository secrets:
+- `SERVER_HOST` (e.g. `192.168.1.111`)
+- `SERVER_USER` (e.g. `vityuntu`)
+- `SERVER_SSH_KEY` (private key with SSH access)
+- `SERVER_DEPLOY_PATH` (e.g. `/home/vityuntu/homeserver/home-device-bridge`)
+- `SERVER_PORT` (optional, defaults to 22)
+
+Server prerequisites:
+- `docker` + `docker compose` installed
+- `.env` present at `SERVER_DEPLOY_PATH` (not overwritten by CI)
+- Optional `config/devices.json` for device mapping (not overwritten by CI)
+
 ## Project Structure
 
 ```
