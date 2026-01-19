@@ -1,11 +1,16 @@
 """Resources describing Home Assistant notifications."""
 
+import os
 from typing import Any
 
 import httpx
 from fastmcp import FastMCP
 
-from ..config import HA_TOKEN, HA_URL, NOTIFICATION_GUIDE
+NOTIFICATION_GUIDE = """Send a Home Assistant push notification using send_notification.
+
+Before calling the tool, read mcp://notification/devices to get the exact device slug.
+Use the exact slug in the tool call (not the full notify service name).
+"""
 
 
 def register_notification_resources(mcp: FastMCP) -> None:
@@ -19,14 +24,17 @@ def register_notification_resources(mcp: FastMCP) -> None:
     @mcp.resource("mcp://notification/devices")
     async def notification_devices() -> str:
         """Return a list of exact notify device slugs from Home Assistant."""
-        if not HA_TOKEN:
+        ha_token = os.getenv("HA_TOKEN", "")
+        ha_url = os.getenv("HA_URL", "http://homeassistant.local:8123")
+
+        if not ha_token:
             return "HA_TOKEN is not set. Unable to list notify devices."
 
         headers = {
-            "Authorization": f"Bearer {HA_TOKEN}",
+            "Authorization": f"Bearer {ha_token}",
             "Content-Type": "application/json",
         }
-        url = f"{HA_URL}/api/services"
+        url = f"{ha_url}/api/services"
 
         async with httpx.AsyncClient(timeout=10) as client:
             response = await client.get(url, headers=headers)

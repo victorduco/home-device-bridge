@@ -1,11 +1,10 @@
 """Home Assistant notification tools."""
 
+import os
 from typing import Any
 
 import httpx
 from fastmcp import FastMCP
-
-from ..config import HA_TOKEN, HA_URL
 
 
 def register_notification_tools(mcp: FastMCP) -> None:
@@ -24,11 +23,14 @@ def register_notification_tools(mcp: FastMCP) -> None:
 
         Use the exact <device> slug from the mcp://notification/devices resource.
         """
-        if not HA_TOKEN:
+        ha_token = os.getenv("HA_TOKEN", "")
+        ha_url = os.getenv("HA_URL", "http://homeassistant.local:8123")
+
+        if not ha_token:
             return {"status": "error", "error": "HA_TOKEN is not set"}
 
         headers = {
-            "Authorization": f"Bearer {HA_TOKEN}",
+            "Authorization": f"Bearer {ha_token}",
             "Content-Type": "application/json",
         }
 
@@ -45,7 +47,7 @@ def register_notification_tools(mcp: FastMCP) -> None:
             payload["data"]["subtitle"] = subtitle
 
         service_name = f"mobile_app_{device}"
-        url = f"{HA_URL}/api/services/notify/{service_name}"
+        url = f"{ha_url}/api/services/notify/{service_name}"
 
         async with httpx.AsyncClient(timeout=10) as client:
             response = await client.post(url, json=payload, headers=headers)

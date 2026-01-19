@@ -2,12 +2,14 @@
 
 import fastmcp
 import uvicorn
+from dotenv import load_dotenv
 from starlette.responses import JSONResponse
 
 from .app import create_app
 
 
 if __name__ == "__main__":
+    load_dotenv()
     mcp = create_app()
     mcp_app = mcp.http_app(
         path="/",
